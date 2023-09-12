@@ -1,0 +1,349 @@
+;; Tanya Khan
+;; takhan
+
+;; Mansi Gera
+;; mgera
+
+;; •Your solutions to the following problems should use helper functions in place of repeated code and to improve the readability of your code.
+;; •Remember to include a signature, purpose, and test cases for every function you write, including helpers.
+;; •Make sure you read each problem carefully and create a signature that conforms to the problem description. You must name each function with the exact name specified in the problem.
+;; •Your signature must conform to the problem description. Otherwise, we won't be able to run our automated tester on your program, and you'll lose points.
+;; •Programs that don't work with our auto-tester (and thus must be tested manually) will be penalized with a deduction of 10% of the total number of points for the assignment.
+;; •Each test case you develop should be annotated with a brief comment that describes the situation being tested.
+
+;; Assignment Goals:
+;; •To make sure you can define itemizations and write programs over itemizations
+;; •To make sure you can define lists and write programs over lists
+
+;; For 1, 2, 3, we aren't going to use LoS, we're gonna use the stuff we learned from before
+
+; A storm can be any one of the following (use the names in bold  to name your structs):
+; 
+; 
+; •hurricane Information required for a hurricane consists of the name of the hurricane,
+; the category (a number between 1 and 5, inclusive), the maximum sustained winds in miles per hour, the velocity of the storm in miles per hour, and the storm's heading
+; (for example, NNW).
+; 
+; 
+; 
+; •thunderstorm The definition of a thunderstorm consists of the number of inches of rainfall, the maximum wind gust in miles per hour, the velocity of the
+; storm in miles per hour, and its heading.
+; 
+; 
+; 
+; •fire A fire is represented by the number of square miles it covers, the number of days it has been raging, and the number of people displaced by the fire. 
+
+
+; Problem 1) (20 Points) Develop a data definition for each type of storm described above, and a data definition for an itemization for storms. When creating a struct,
+; the order of the fields in the struct should match the order given in the descriptions above. For example, the fields of the struct for a hurricane should be the name,
+; category, maximum wind, velocity, and heading, in that order. Failure to define the fields in the given order will cause our auto-tester to fail, and you will lose points.
+; Provide at least one example for each kind of storm. 
+
+;;Data Definition for an Itemization:         (Super-Type / Super-Class)
+
+;; a Storm is one of
+;;    Hurricane
+;;    Thunderstorm
+;;    Fire
+
+;; (Hurricane) Data Definition:
+
+;; a Hurricane is a (make-hurricane String Natural Natural Natural String)
+;; interp:  a hurricane where 
+;;   name is the hurricane's name
+;;   category is a number between 1 and 5, inclusive based on intensity 
+;;   max-winds is the maximum sustained winds (in miles per hour)
+;;   hurricane-velocity is the velocity of the hurricane (in miles per hour)
+;;   hurricane-storms-heading is the direction the hurricane is headed towards (NNW, WNW, etc.)
+
+;; (Hurricane) struct: 
+
+(define-struct hurricane (name category max-winds velocity hurricane-storms-heading))
+
+
+;; (Hurricane) Example(s): 
+
+(define IRENE(make-hurricane "irene" 3 121 2 "NNW"))
+(define BILL (make-hurricane "bill"  5 150 4 "SE" ))
+(define ELSA (make-hurricane "elsa"  4 200 3 "NE" ))
+
+;;----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+;; (Thunderstorm) Data Definition:
+
+;; a Thunderstorm is a (make-thunderstorm Natural Natural Natural String)
+;; interp:  a thunderstorm where 
+;;   num-of-inches is the measurement of rainfall (in inches) 
+;;   max-wind-gust is the maximum wind gust (in miles per hour) 
+;;   thunder-velocity is the velocity of the thunderstorm (in miles per hour) 
+;;   thunder-storms-heading is the direction the thunderstorm is headed towards (NNW, WNW, etc.)
+;;   hurricane-storms-heading is the direction the storm is headed towards (NNW, WNW, etc.)
+
+;; (Thunderstorm) struct: 
+
+(define-struct thunderstorm (num-of-inches max-wind-gust thunder-velocity thunder-storms-heading))
+
+;; (Thunderstorm) Example(s): 
+
+(define BOLT  (make-thunderstorm 12 100 4 "WNW"))
+(define ZEUS  (make-thunderstorm 10 160 3 "NWN"))
+(define HERMES(make-thunderstorm 9  203 2 "SE" ))
+
+;;----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+;; (Fire) Data Definition:
+
+;; a Fire is a (make-fire Natural Natural Natural)
+;; interp:  a fire where
+;;   num-of-miles is the number of square miles the fire covers
+;;   num-of-days is the number of days the fire has been raging
+;;   num-of-ppl-displaced is the number of people displaced by the fire
+
+;; (Fire) struct: 
+
+(define-struct fire (num-of-miles num-of-days num-of-ppl-displaced))
+
+;; (Fire) Example(s): 
+
+(define FLAME  (make-fire 60 7 100))
+(define INFERNO(make-fire 20 2 25 ))
+(define BLAZE  (make-fire 80 5 70 ))
+
+             
+; Problem 2) (20 Points)   Provide the template for each data definition you made in Problem 1 (including the itemization for storm).
+
+;; storm-fcn: Storm -> ...
+
+;(define (storm-fcn a-storm)
+;  (cond [(hurricane? a-storm (...(hurricane-name-of-hurricane  a-storm)
+;                                 (hurricane-category           a-storm)
+;                                 (hurricane-max-winds          a-storm)
+;                                 (hurricane-hurricane-velocity a-storm)
+;                                 (hurricane-hurricane-storms-heading)))
+;         (thunderstorm? a-storm (...(thunderstorm-num-of-inches            a-storm)
+;                                    (thunderstorm-max-wind-gust            a-storm)
+;                                    (thunderstorm-thunder-velocity         a-storm)
+;                                    (thundersotrm-thunder-storms-heading a-storm)))       
+;         (fire? a-storm (...(fire-num-of-miles fire-num-of-days fire-num-of-ppl-displaced)))]))
+
+;; hurricane-fcn: Hurricane -> ...
+
+;...
+;(define (hurricane-fcn (a-hurricane)
+;  (...(name                      a-hurricane)
+;      (category                  a-hurricane)                           
+;      (max-winds                 a-hurricane)
+;      (velocity                  a-hurricane)
+;      (hurricane-storms-heading a-hurricane))
+
+;...
+;(define (thunderstorm-fcn (a-thunderstorm)
+;  (...(num-of-inches           a-thunderstorm)
+;      (max-wind-gust           a-thunderstorm)
+;      (thunder-velocity        a-thunderstorm)
+;      (thunder-storms-heading a-thunderstorm))
+
+;...
+;(define (fire-fcn (a-fire)
+;  (...(num-of-miles         a-fire)
+;      (num-of-days          a-fire)
+;      (num-of-ppl-displaced a-fire)
+
+
+
+
+; Problem 3) (25 Points)   Write a function high-impact? that consumes a storm and produces a boolean. The function returns true if the storm is a category 4 or
+; 5 hurricane, a thunderstorm with more than 3 inches of rainfall and winds exceeding 60mph, or a fire covering at least 50 square miles.
+
+; Signature: 
+;; a-storm -> Boolean
+
+; Purpose: 
+;; function returns true if the storm is a category 4 or 5 hurricane, if a thunderstorm with more than
+;; 3 inches of rainfall and winds exceeding 60mph, if a fire is covering at least 50 square miles.
+
+; Stub: 
+;; (define (high-impact? a-storm) #true)
+
+(check-expect (high-impact? IRENE   )#false)
+(check-expect (high-impact? BOLT    )#false)
+(check-expect (high-impact? FLAME   )#true )
+
+(check-expect (high-impact? BILL    )#true )
+(check-expect (high-impact? ZEUS    )#false)
+(check-expect (high-impact? INFERNO )#false)
+
+(check-expect (high-impact? ELSA    )#true )
+(check-expect (high-impact? HERMES  )#false)
+(check-expect (high-impact? BLAZE   )#true )
+
+
+(define (high-impact? a-storm)
+  (cond [(hurricane? a-storm)
+         (>= (hurricane-category a-storm) 4)]
+        [(thunderstorm? a-storm)
+         (and(> (thunderstorm-num-of-inches a-storm) 3)
+             (= (thunderstorm-max-wind-gust a-storm) 60))]
+        [(fire? a-storm)
+         (>= (fire-num-of-miles a-storm) 50)]))
+
+
+; Problem 4) (25 Points)  Write a function change-heading that consumes a storm and a heading and produces a storm. The storm is returned unchanged if the given storm
+; is a fire. Otherwise, the storm that's produced is a storm the same as the original, except that the heading has been changed to the given heading. 
+
+; Signature: 
+;; a-storm a-heading -> a-storm
+
+; Purpose: 
+;; storm is returned unchanged if the given storm is a fire. Otherwise, the storm that's produced is a storm the same as the original, except that
+;; the heading has been changed to the given heading. 
+
+; Stub: 
+;; (define (change-heading INFERNO "W") INFERNO)
+
+(check-expect (change-heading IRENE   "NW" ) (make-hurricane "irene" 3 121 2 "NW"))
+(check-expect (change-heading BOLT    "W"  ) (make-thunderstorm 12 100 4 "W"     ))
+(check-expect (change-heading FLAME   "N"  )                                 FLAME)
+
+(check-expect (change-heading BILL    "S"  ) (make-hurricane  "bill" 5 150 4 "S" ))
+(check-expect (change-heading ZEUS    "NE" ) (make-thunderstorm 10 160 3 "NE"    ))
+(check-expect (change-heading INFERNO "W"  )                               INFERNO)
+
+(check-expect (change-heading ELSA    "SW" ) (make-hurricane  "elsa" 4 200 3 "SW")) 
+(check-expect (change-heading HERMES   "W" ) (make-thunderstorm  9 203 2 "W"     ))
+(check-expect (change-heading BLAZE    "E" )                                 BLAZE)
+
+
+(define (change-heading a-storm a-heading)
+  (cond [(hurricane? a-storm)
+         (make-hurricane (hurricane-name a-storm) (hurricane-category a-storm) (hurricane-max-winds a-storm) (hurricane-velocity a-storm) a-heading)]
+        [(thunderstorm? a-storm)
+         (make-thunderstorm (thunderstorm-num-of-inches a-storm) (thunderstorm-max-wind-gust a-storm) (thunderstorm-thunder-velocity a-storm) a-heading)]
+        [(fire? a-storm)
+         a-storm]))
+         
+;;----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+;;In the following problems, use this data definition for ListOfString
+;; a ListOfString is one of
+;;  empty
+;;  (cons String ListOfString)
+;; interp:  ListOfString represents a list of strings
+
+; Problem 5) (25 Points)Develop a function character-count that consumes a ListOfString and counts the total number of characters in all strings in the list. 
+
+;(define character-count)
+
+;(define (fn-for-los alos)
+;  (cond [(empty? alos) ...]
+;        [else
+;         (... (fn-for-string (first alos))
+;              (fn-for-los (rest alos)))]))
+
+; "hello" "hi" "world"
+; 5 "hi" "world"
+; 
+; "hi" "world"
+; "world"
+; 12
+; 
+; (define (character-count alos)
+;   (cond [(empty? alos) 0]
+;         [else
+;          (+ 2
+;             5)]))
+; (define (character-count alos)
+;   (cond [(empty? alos) 0]
+;         [else
+;          (+ 5
+;             7)]))
+; 
+; returns 12 
+
+; Signature: 
+;; alos -> Natural
+
+; Purpose:
+;; consumes a ListOfString and counts the total number of characters in all strings in the list. 
+
+; Stub: 
+;; (define (character-count alos) 0)
+ 
+(check-expect (character-count empty)                                                                                                     0)
+(check-expect (character-count (cons "1" (cons "!" (cons "0" empty))))                                                                    3)
+(check-expect (character-count (cons "hello" (cons "bye" empty)))                                                                         8)
+(check-expect (character-count (cons "how" (cons "are" (cons "you" (cons "today?" empty)))))                                             15)
+(check-expect (character-count (cons "abcdefghijklmnopqrstuvwxyz" empty))                                                                26)
+(check-expect (character-count (cons "My name is Tanya" (cons "My name is Mansi" (cons "We are friends" (cons "!" empty)))))             47)
+(check-expect (character-count (cons "Hello TA" (cons "hope you're well" (cons "please give us full points" (cons "we <3 you" empty))))) 59)
+
+
+
+(define (character-count alos)
+  (cond [(empty? alos) 0]
+        [else
+         (+ (string-length(first alos))
+            (character-count (rest alos)))]))
+  
+; Problem 6) (30 Points)Develop a function numeric-strings that consumes a ListOfString and produces a ListOfString. The list that's produced contains only those
+; strings from the original list that consist entirely of numeric characters. (Hint: check the DrRacket help desk for various built-in string functions that will help you solve this problem).
+
+; Signature:
+;; alos -> alos
+
+; Purpose:
+;; list that's produced contains only those strings from the original list that consist entirely of numeric characters.
+
+; Stub: 
+;(define (numeric-strings alos)empty) 
+
+(check-expect (numeric-strings empty)                                                                                                                  empty)
+(check-expect (numeric-strings (cons "knock knock" (cons "who's there" (cons "nvm"  empty))))                                                          empty)
+(check-expect (numeric-strings (cons "bye" (cons "bye" (cons "bye"  empty))))                                                                          empty)
+(check-expect (numeric-strings (cons "crazy" (cons "8" (cons "!"  empty)))) (cons "8"                                                                 empty))
+(check-expect (numeric-strings (cons "23h"   (cons "5"   empty))) (cons "5"                                                                           empty))
+(check-expect (numeric-strings (cons "Why is 6 afraid of 7" (cons "because" (cons "7" (cons "8" (cons "9" empty)))))) (cons "7" (cons "8" (cons "9" empty))))
+
+
+
+
+(define (numeric-strings alos)
+  (cond [(empty? alos) empty]
+        [else
+         (if(number? (string->number (first alos)))
+            (cons (first alos)
+                  (numeric-strings (rest alos)))
+            (numeric-strings (rest alos)))]))
+
+  
+; Problem 7) (30 Points)  Write a data definition to represent a list of natural numbers (call it ListOfNatural). Then develop a function lengths-of-strings that consumes a ListOfString
+; and produces a ListOfNatural. The function produces a list of the lengths of each of the strings in the given ListOfString. 
+
+
+; Signature:
+;; alos -> alon
+
+; Purpose:
+;; produces a list of the lengths of each of the strings in the given ListOfString
+
+; Stub:
+;; (define (lengths-of-strings alos) empty)
+
+; Data Definition: 
+;; a ListOfNatural is one of
+;;     empty
+;;    (cons Natural ListOfNatural)
+
+
+(check-expect (lengths-of-string empty)                                                                                          empty)
+(check-expect (lengths-of-string (cons "2" empty)) (cons 1                                                                      empty))
+(check-expect (lengths-of-string (cons "2" (cons "two" empty))) (cons 1 (cons 3                                                empty)))
+(check-expect (lengths-of-string (cons "hello" (cons "sun" (cons "apple" empty)))) (cons 5 (cons 3                  (cons 5   empty))))
+(check-expect (lengths-of-string (cons "2" (cons "4" empty)))                                                  (cons 1 (cons 1 empty)))                                          
+(check-expect (lengths-of-string (cons "My" (cons "name" (cons "is" (cons "Tanya" empty))))) (cons 2 (cons 4 (cons 2 (cons 5 empty)))))
+
+
+(define (lengths-of-string alos)
+  (cond [(empty? alos) empty]
+        [else
+         (cons (string-length (first alos))
+               (lengths-of-string (rest alos)))]))
